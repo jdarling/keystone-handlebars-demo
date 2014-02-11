@@ -1,0 +1,14 @@
+<p><a href="/blog" class="text-muted">&larr; back to the blog</a></p>
+<hr>
+<article>
+	<header>
+		<h1>{{data.post.title}}</h1>
+	</header>
+	<div class="post">
+		<h5 class="text-muted">Posted on
+			<time datetime="{{data.post.publishedDate}}">{{data.post.publishedDate}}</time>{{data.post.author.name.first}}
+		</h5>
+		{{{data.post.content.full}}}
+	</div>
+	{{> comments}}
+</article>

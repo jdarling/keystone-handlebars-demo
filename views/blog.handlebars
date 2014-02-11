@@ -1,0 +1,44 @@
+{{#if data.category}}
+<h1>{{data.category.name}}</h1>
+{{else}}
+<h1>Blog</h1>
+{{/if}}
+
+{{#if data.categories}}
+<ul class="page-filters">
+	<li><a href="/blog">All</a></li>
+{{#each data.categories}}
+	<li><a href="/blog/{{or key id}}">{{name}}</a></li>
+{{/each}}
+</ul>
+{{/if}}
+
+{{#if user.canAccessKeystone}}
+<p>Edit the blog with the <a href='/keystone/posts'>Keystone Admin UI</a>, or click the 'edit post' link that will appear for each post on hover.</p>
+{{else}}
+<p>You can contribute to this example blog by <a href='/keystone/signin'>signing in</a> as the demo user <code>demo@keystonejs.com / demo</code></p>
+{{/if}}
+
+{{#if data.posts.results.length}}
+<div class="blog row">
+	<div class="col-sm-6">
+		<div data-ks-editable="{&quot;type&quot;:&quot;list&quot;,&quot;path&quot;:&quot;posts&quot;,&quot;singular&quot;:&quot;Post&quot;,&quot;plural&quot;:&quot;Posts&quot;,&quot;id&quot;:&quot;52fa69e7036f52084c914e25&quot;}" class="post">
+			{{#each data.posts.results}}
+			<article itemscope="itemscope" itemtype="http://schema.org/BlogPosting" class="card card--default">
+				<a href="/blog/post/{{slug}}" itemprop="url">
+					<div class="card__body">
+						<h1 itemprop="name" class="card__title">{{title}}</h1>
+						<time datetime="{{publishedDate}}" class="text-muted text-small">{{publishedDate}}</time>
+						<div itemprop="description">{{{content.brief}}}</div>
+					</div>
+				</a>
+			</article>
+			{{/each}}
+		</div>
+	</div>
+</div>
+{{else}}
+<div class="jumbotron text-center">
+	<h3>There are no posts yet.</h3>
+</div>
+{{/if}}

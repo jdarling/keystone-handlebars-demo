@@ -1,0 +1,53 @@
+extends ../layouts/default
+
+block css
+	link(rel="stylesheet", href="/js/lib/fancybox/jquery.fancybox.css")
+				
+block content
+	h1 Gallery
+	
+	//- p.lead This is an example image gallery, demonstrating how you can use images with Keystone and Cloudinary.
+	//- p.lead Please follow us for updates to the demo site.
+
+	if galleries.length
+		
+		each gallery, i in galleries
+			if i
+				hr
+			h3= gallery.name
+				|  
+				small.text-muted= gallery._.publishedDate.format('Do MMM YYYY')
+			
+			.gallery-images
+				if gallery.heroImage.exists
+					.row
+						.col-xs-12
+							a(href=gallery._.heroImage.limit(900,600), title=gallery.name + ' hero image', rel='gallery').gallery-image
+								img(src=gallery._.heroImage.limit(640,640), alt=gallery.name + ' hero image')
+				.row
+					each image, i in gallery.images
+						.col-xs-6.col-sm-4.col-md-3
+							a(href=image.limit(900,600), title=gallery.name + ' image ' + (i+1), rel='gallery').gallery-image
+								img(src=image.fill(300,300), alt=gallery.name + ' image ' + (i+1))
+		
+	else
+		.jumbotron.text-center
+			.lead.text-muted There are no image galleries in the database.
+
+
+block page-js
+	script(src='/js/lib/bootstrap/modal.js')
+	script(src='/js/lib/bootstrap/carousel.js')
+	script(src="/js/lib/fancybox/jquery.fancybox.pack.js")
+	script.
+		jQuery(function($) {
+			$('.gallery-images').find('.gallery-image').fancybox({
+				prevEffect: 'none',
+				nextEffect: 'none',
+				closeBtn: false,
+				helpers: {
+					titl: {},
+					buttons: {}
+				}
+			});
+		});
