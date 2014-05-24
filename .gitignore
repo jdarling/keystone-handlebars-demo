@@ -1,20 +1,19 @@
 lib-cov
 *.seed
 *.log
-*.csv
 *.dat
 *.out
 *.pid
 *.gz
+*.swp
+*.un~
+.env
 
 pids
 logs
 results
 
 npm-debug.log
-.DS_Store
-
 node_modules
-ACCOUNTS
 
-.env
+.DS_Store
